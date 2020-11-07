@@ -1,0 +1,52 @@
+resource_types:
+- name: registry-image
+  type: docker-image
+  source:
+    repository: crackcomm/registry-image-resource
+
+resources:
+- name: ocaml-docker-repo
+  type: git
+  source:
+    uri: http://gitea.local:4424/pah/ocaml-docker.git
+    branch: master
+
+- name: ocaml-image
+  type: registry-image
+  icon: docker
+  source:
+    tag: ((version))
+    repository: registry:5000/ocaml
+
+- name: ocaml-ext-image
+  type: registry-image
+  icon: docker
+  source:
+    tag: ((version))
+    repository: registry:5000/ocaml-ext
+
+jobs:
+- name: build-image
+  plan:
+  - get: ocaml-docker-repo
+    trigger: true
+  - task: build-task-image
+    file: ocaml-docker-repo/tasks/build-ocaml-image.yml
+    privileged: true
+  - put: ocaml-image
+    params:
+      image: image/image.tar
+
+- name: build-image-ext
+  plan:
+  - get: ocaml-image
+    trigger: true
+    passed: [build-image]
+  - task: build-task-image
+    file: ocaml-docker-repo/tasks/build-ocaml-image.yml
+    privileged: true
+    params:
+      DOCKERFILE: ocaml-docker-repo/((distro))/Dockerfile.ext
+  - put: ocaml-ext-image
+    params:
+      image: image/image.tar

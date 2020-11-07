@@ -1,0 +1,24 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: vito/oci-build-task
+
+params:
+  CONTEXT: ocaml-docker-repo/((distro))
+  DOCKERFILE: ocaml-docker-repo/((distro))/Dockerfile
+  BUILD_ARG_OCAML_VER: ((version))
+
+caches:
+- path: cache
+
+inputs:
+- name: ocaml-docker-repo
+
+outputs:
+- name: image
+
+run:
+  path: build
