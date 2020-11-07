@@ -7,9 +7,9 @@ image_resource:
     repository: vito/oci-build-task
 
 params:
-  CONTEXT: ocaml-docker-repo/((distro))
-  DOCKERFILE: ocaml-docker-repo/((distro))/Dockerfile
-  BUILD_ARG_OCAML_VER: ((version))
+  CONTEXT:
+  DOCKERFILE:
+  BUILD_ARG_OCAML_VER: 4.11.1
 
 caches:
 - path: cache
