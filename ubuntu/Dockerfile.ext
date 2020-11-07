@@ -1,5 +1,5 @@
 ARG OCAML_VER
-FROM registry:5000/ocaml:$OCAML_VER
+FROM registry.local:5000/ocaml:$OCAML_VER
 RUN eval $(opam env) && opam install -y \
   core core_kernel lwt yojson conf-rust-2018 \
   npy torch digestif bin_prot \

@@ -16,14 +16,14 @@ resources:
   icon: docker
   source:
     tag: ((version))
-    repository: registry:5000/ocaml
+    repository: registry.local:5000/ocaml
 
 - name: ocaml-ext-image
   type: registry-image
   icon: docker
   source:
     tag: ((version))
-    repository: registry:5000/ocaml-ext
+    repository: registry.local:5000/ocaml-ext
 
 jobs:
 - name: build-image
@@ -31,14 +31,19 @@ jobs:
   - get: ocaml-docker-repo
     trigger: true
   - task: build-task-image
+    params:
+      CONTEXT: ocaml-docker-repo/((distro))
+      DOCKERFILE: ocaml-docker-repo/((distro))/Dockerfile
+      BUILD_ARG_OCAML_VER: ((version))
     file: ocaml-docker-repo/tasks/build-ocaml-image.yml
     privileged: true
   - put: ocaml-image
     params:
       image: image/image.tar
 
-- name: build-image-ext
+- name: build-ext-image
   plan:
+  - get: ocaml-docker-repo
   - get: ocaml-image
     trigger: true
     passed: [build-image]
@@ -46,6 +51,8 @@ jobs:
     file: ocaml-docker-repo/tasks/build-ocaml-image.yml
     privileged: true
     params:
+      CONTEXT: ocaml-docker-repo/((distro))
+      BUILD_ARG_OCAML_VER: ((version))
       DOCKERFILE: ocaml-docker-repo/((distro))/Dockerfile.ext
   - put: ocaml-ext-image
     params:
