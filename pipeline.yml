@@ -16,14 +16,16 @@ resources:
   icon: docker
   source:
     tag: ((version))
-    repository: registry.local:5000/ocaml
+    username: crackcomm
+    password: m9grum9nj8935j984f3wk90
+    repository: quay.io/crackcomm/ocaml
 
 - name: ocaml-ext-image
   type: registry-image
   icon: docker
   source:
-    tag: ((version))
-    repository: registry.local:5000/ocaml-ext
+    tag: ((version))-ext
+    repository: quay.io/crackcomm/ocaml
 
 jobs:
 - name: build-image
