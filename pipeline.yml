@@ -16,8 +16,6 @@ resources:
   icon: docker
   source:
     tag: ((version))
-    username: crackcomm
-    password: m9grum9nj8935j984f3wk90
     repository: registry.dev:5000/crackcomm/ocaml
 
 - name: ocaml-ext-image

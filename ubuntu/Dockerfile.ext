@@ -9,4 +9,4 @@ RUN eval $(opam env) && opam install -y \
   npy torch digestif bin_prot \
   atdgen atdgen-runtime alcotest core_bench \
   cohttp-lwt-unix conduit-lwt-unix \
-  ppx_bin_prot ppx_deriving ppx_enumerate ppx_sexp_conv 
+  ppx_bin_prot ppx_deriving ppx_enumerate ppx_sexp_conv
