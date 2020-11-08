@@ -1,4 +1,5 @@
 ARG OCAML_VER
+ENV DEBIAN_FRONTEND=noninteractive
 FROM registry.dev:5000/ocaml:$OCAML_VER
 RUN apt-get update && apt-get install -y pkg-config && rm -rf /var/lib/apt/lists/
 RUN eval $(opam env) && opam install -y \

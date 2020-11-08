@@ -8,7 +8,7 @@ resources:
 - name: ocaml-docker-repo
   type: git
   source:
-    uri: http://gitea.local:4424/pah/ocaml-docker.git
+    uri: http://gitea.dev:4424/pah/ocaml-docker.git
     branch: master
 
 - name: ocaml-image
@@ -18,14 +18,14 @@ resources:
     tag: ((version))
     username: crackcomm
     password: m9grum9nj8935j984f3wk90
-    repository: quay.io/crackcomm/ocaml
+    repository: registry.dev:5000/crackcomm/ocaml
 
 - name: ocaml-ext-image
   type: registry-image
   icon: docker
   source:
     tag: ((version))-ext
-    repository: quay.io/crackcomm/ocaml
+    repository: registry.dev:5000/crackcomm/ocaml
 
 jobs:
 - name: build-image
@@ -46,6 +46,7 @@ jobs:
 - name: build-ext-image
   plan:
   - get: ocaml-docker-repo
+    trigger: true
   - get: ocaml-image
     trigger: true
     passed: [build-image]
