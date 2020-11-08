@@ -10,4 +10,4 @@ RUN eval $(opam env) && opam install -y \
   atdgen atdgen-runtime alcotest core_bench \
   cohttp-lwt-unix conduit-lwt-unix \
   ppx_bin_prot ppx_deriving ppx_enumerate ppx_sexp_conv
-RUN apt-get update && apt-get install python3 libssl-dev && rm -rf /var/lib/apt/lists/
+RUN apt-get update && apt-get install -y python3 libssl-dev && rm -rf /var/lib/apt/lists/
